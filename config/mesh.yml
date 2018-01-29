@@ -1,0 +1,24 @@
+---
+
+sd:
+  agent: "consul"
+  addr: "localhost"
+  port: 8500
+  datacenter: "dc1"
+
+listens:
+- port: 3000
+  scheme: http
+  route2incoming: false
+- port: 3001
+  scheme: http
+  route2incoming: true
+
+# this maybe changed dynamically by admin http api, and wrapped by CLI
+services:
+- name: "svc"
+  tag: "tag1"
+  weight: 80
+- name: "svc"
+  tag: "tag2"
+  weight: 20

@@ -1,7 +1,7 @@
 package sd
 
 import (
-	"spidermesh/config"
+	"github.com/spidermesh/spidermesh/config"
 )
 
 type ServiceInfo struct {
@@ -10,7 +10,7 @@ type ServiceInfo struct {
 }
 
 type ServiceDiscovery interface {
-	GetServices(string) []*ServiceInfo
+	GetService(string) *ServiceInfo
 }
 
 type Factory func(sdc *config.SD) ServiceDiscovery

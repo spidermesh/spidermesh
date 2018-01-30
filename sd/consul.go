@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"time"
 
-	"spidermesh/config"
+	"github.com/spidermesh/spidermesh/config"
 
 	consul "github.com/hashicorp/consul/api"
 )
@@ -65,7 +65,7 @@ func (c *Consul) getServicesByTag(svc, tag string) []*ServiceInfo {
 	return svcInfos
 }
 
-func (c *Consul) GetServices(svc string) []*ServiceInfo {
+func (c *Consul) GetService(svc string) *ServiceInfo {
 	tag := ""
 	services := config.CServices.GetServices(svc)
 	if len(services) > 0 {
@@ -90,5 +90,5 @@ func (c *Consul) GetServices(svc string) []*ServiceInfo {
 	if svcInfos == nil || len(svcInfos) == 0 {
 		return nil
 	}
-	//	return svcInfos[rand.Intn(len(svcInfos))]
+	return svcInfos[rand.Intn(len(svcInfos))]
 }

@@ -9,10 +9,10 @@ import (
 	"strings"
 	"sync"
 
-	"spidermesh/config"
-	"spidermesh/config/parse"
-	"spidermesh/proxy"
-	svcd "spidermesh/sd"
+	"github.com/spidermesh/spidermesh/config"
+	"github.com/spidermesh/spidermesh/config/parse"
+	"github.com/spidermesh/spidermesh/proxy"
+	svcd "github.com/spidermesh/spidermesh/sd"
 
 	"github.com/urfave/negroni"
 )

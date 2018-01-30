@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"spidermesh/config"
+	"github.com/spidermesh/spidermesh/config"
 
 	"gopkg.in/yaml.v2"
 )

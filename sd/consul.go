@@ -3,8 +3,6 @@ package sd
 import (
 	"fmt"
 	"log"
-	"math/rand"
-	"time"
 
 	"github.com/spidermesh/spidermesh/config"
 
@@ -46,10 +44,10 @@ func (c *Consul) PrepareClient() error {
 	return nil
 }
 
-func (c *Consul) getServicesByTag(svc, tag string) []*ServiceInfo {
+func (c *Consul) GetServicesByTag(svc, tag string) []*ServiceInfo {
 	services, _, err := c.client.Catalog().Service(svc, tag, nil)
 	if len(services) == 0 || err != nil {
-		log.Printf("Can't find service %s\n", svc)
+		// log.Printf("Can't find service %s\n", svc)
 		if err != nil {
 			log.Println(err)
 		}
@@ -63,32 +61,4 @@ func (c *Consul) getServicesByTag(svc, tag string) []*ServiceInfo {
 		})
 	}
 	return svcInfos
-}
-
-func (c *Consul) GetService(svc string) *ServiceInfo {
-	tag := ""
-	services := config.CServices.GetServices(svc)
-	if len(services) > 0 {
-		ratios := []int{}
-		tags := []string{}
-		sum := 0
-		for _, service := range services {
-			sum += service.Weight
-			ratios = append(ratios, sum)
-			tags = append(tags, service.Tag)
-		}
-		rand.Seed(time.Now().Unix())
-		randInt := rand.Intn(sum)
-		for i, ratio := range ratios {
-			if randInt < ratio {
-				tag = tags[i]
-				break
-			}
-		}
-	}
-	svcInfos := c.getServicesByTag(svc, tag)
-	if svcInfos == nil || len(svcInfos) == 0 {
-		return nil
-	}
-	return svcInfos[rand.Intn(len(svcInfos))]
 }

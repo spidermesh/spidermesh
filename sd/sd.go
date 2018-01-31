@@ -1,6 +1,8 @@
 package sd
 
 import (
+	"fmt"
+
 	"github.com/spidermesh/spidermesh/config"
 )
 
@@ -9,8 +11,12 @@ type ServiceInfo struct {
 	Port int
 }
 
+func (s *ServiceInfo) String() string {
+	return fmt.Sprintf("%s-%d", s.IP, s.Port)
+}
+
 type ServiceDiscovery interface {
-	GetService(string) *ServiceInfo
+	GetServicesByTag(string, string) []*ServiceInfo
 }
 
 type Factory func(sdc *config.SD) ServiceDiscovery
